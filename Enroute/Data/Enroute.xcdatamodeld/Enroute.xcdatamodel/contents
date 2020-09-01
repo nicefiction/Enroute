@@ -4,6 +4,7 @@
         <attribute name="code" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="shortname" optional="YES" attributeType="String"/>
+        <relationship name="flights" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flight" inverseName="airline" inverseEntity="Flight"/>
     </entity>
     <entity name="Airport" representedClassName="Airport" syncable="YES" codeGenerationType="class">
         <attribute name="icao" optional="YES" attributeType="String"/>
@@ -12,6 +13,8 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="timezone" optional="YES" attributeType="String"/>
+        <relationship name="flightsFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flight" inverseName="origin" inverseEntity="Flight"/>
+        <relationship name="flightsTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flight" inverseName="destination" inverseEntity="Flight"/>
     </entity>
     <entity name="Flight" representedClassName="Flight" syncable="YES" codeGenerationType="class">
         <attribute name="aircraft" optional="YES" attributeType="String"/>
@@ -19,10 +22,13 @@
         <attribute name="departure" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="filed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="ident" optional="YES" attributeType="String"/>
+        <relationship name="airline" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Airline" inverseName="flights" inverseEntity="Airline"/>
+        <relationship name="destination" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Airport" inverseName="flightsTo" inverseEntity="Airport"/>
+        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Airport" inverseName="flightsFrom" inverseEntity="Airport"/>
     </entity>
     <elements>
-        <element name="Airport" positionX="-63" positionY="-18" width="128" height="133"/>
-        <element name="Airline" positionX="-54" positionY="-9" width="128" height="88"/>
-        <element name="Flight" positionX="-36" positionY="9" width="128" height="118"/>
+        <element name="Airline" positionX="-217.35546875" positionY="-445.140625" width="128" height="103"/>
+        <element name="Airport" positionX="-489.53125" positionY="-328.16796875" width="128" height="163"/>
+        <element name="Flight" positionX="-212.78125" positionY="-134.62890625" width="128" height="163"/>
     </elements>
 </model>
