@@ -80,11 +80,13 @@ extension Airport: Identifiable ,
             /* STEP 1
              * Look up icao in Core Data :
              */
-            let request = NSFetchRequest<Airport>(entityName: "Airport")
-            request.predicate = NSPredicate(format : "icao_CoreData = %@" , icao)
-            request.sortDescriptors = [NSSortDescriptor(key : "location" , ascending : true)]
+//            let request = NSFetchRequest<Airport>(entityName: "Airport")
+//            request.predicate = NSPredicate(format : "icao_CoreData = %@" , icao)
+//            request.sortDescriptors = [NSSortDescriptor(key : "location" , ascending : true)]
+            let request = fetchRequest(NSPredicate(format: "icao_CoreData = %@" , icao))
             
             let airports = (try? context.fetch(request)) ?? []
+            
             if
                 let airport = airports.first {
                 /* STEP 2
@@ -105,7 +107,6 @@ extension Airport: Identifiable ,
                 return airport
             } // if let airport = airports.first {} else {}
     } // static func withICAO(_ icao: String) -> Airport {}
-    
     
     
     static func update(from info: AirportInfo ,
@@ -132,6 +133,16 @@ extension Airport: Identifiable ,
     } // static func update(from , context) {}
     
     
+    static func fetchRequest(_ predicate: NSPredicate)
+        -> NSFetchRequest<Airport> {
+            
+           let request = NSFetchRequest<Airport>(entityName : "Airport")
+           request.sortDescriptors = [NSSortDescriptor(key : "location" ,
+                                                       ascending : true)]
+           request.predicate = predicate
+            
+           return request
+       } // static func fetchRequest(_:) -> NSFetchRequest<Airport> {}
     
     
     

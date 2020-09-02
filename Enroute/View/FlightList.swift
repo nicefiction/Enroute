@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 
 struct FlightList: View {
@@ -14,23 +15,29 @@ struct FlightList: View {
      // ////////////////////////
     //  MARK: PROPERTY WRAPPERS
     
-    @ObservedObject var flightFetcher: FlightFetcher
-    
+//    @ObservedObject var flightFetcher: FlightFetcher
+    @FetchRequest var flights: FetchedResults<Flight>
     
     
      // //////////////////////////
     //  MARK: INITIALIZER METHODS
 
     init(_ flightSearch: FlightSearch) {
-        self.flightFetcher = FlightFetcher(flightSearch: flightSearch)
-    }
+        
+//        self.flightFetcher = FlightFetcher(flightSearch: flightSearch)
+        let request = NSFetchRequest<Flight>(entityName: "Flight")
+        request.predicate = NSPredicate(format : "destination_CoreData = %@" , flightSearch.destination)
+        request.sortDescriptors = [NSSortDescriptor(key : "arrival_CoreData" , ascending : true)]
+        
+        _flights = FetchRequest(fetchRequest : request)
+    } // init() {}
 
     
     
      // //////////////////////////
     //  MARK: COMPUTED PROPERTIES
     
-    var flights: [FAFlight] { flightFetcher.latest }
+//    var flights: [FAFlight] { flightFetcher.latest }
     
     var body: some View {
         List {

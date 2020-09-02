@@ -56,16 +56,3 @@ struct FlightsEnrouteView: View {
     
     
 } // struct FlightsEnrouteView: View {}
-
-
-
-
-
- // ///////////////
-//  MARK: PREVIEWS
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        FlightsEnrouteView(flightSearch: FlightSearch(destination: "KSFO"))
-    }
-}
