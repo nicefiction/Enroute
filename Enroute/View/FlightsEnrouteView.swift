@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData // Olivier
 
 
 struct FlightsEnrouteView: View {

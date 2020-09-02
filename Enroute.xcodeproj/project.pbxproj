@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09013D0B2500014400E2170C /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09013D0A2500014400E2170C /* Airport.swift */; };
 		09FB32EA24F7A85C007D86D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FB32E924F7A85C007D86D3 /* AppDelegate.swift */; };
 		09FB32EC24F7A85C007D86D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FB32EB24F7A85C007D86D3 /* SceneDelegate.swift */; };
 		09FB32EF24F7A85C007D86D3 /* Enroute.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09FB32ED24F7A85C007D86D3 /* Enroute.xcdatamodeld */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09013D0A2500014400E2170C /* Airport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
 		09FB32E624F7A85C007D86D3 /* Enroute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Enroute.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09FB32E924F7A85C007D86D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09FB32EB24F7A85C007D86D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 		09FB330624F8003C007D86D3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				09013D0A2500014400E2170C /* Airport.swift */,
 				09FB330724F8006E007D86D3 /* FoundationExtensions.swift */,
 			);
 			path = Extensions;
@@ -239,6 +242,7 @@
 				09FB331C24F802F7007D86D3 /* FlightsEnrouteView.swift in Sources */,
 				09FB32EF24F7A85C007D86D3 /* Enroute.xcdatamodeld in Sources */,
 				09FB331424F8021B007D86D3 /* FlightSearch.swift in Sources */,
+				09013D0B2500014400E2170C /* Airport.swift in Sources */,
 				09FB330A24F800A2007D86D3 /* FlightAwareRequest.swift in Sources */,
 				09FB332224F80375007D86D3 /* FlightListEntry.swift in Sources */,
 				09FB32EA24F7A85C007D86D3 /* AppDelegate.swift in Sources */,
