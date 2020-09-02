@@ -4,7 +4,7 @@
         <attribute name="code_CoreData" optional="YES" attributeType="String"/>
         <attribute name="name_CoreData" optional="YES" attributeType="String"/>
         <attribute name="shortname_CoreData" optional="YES" attributeType="String"/>
-        <relationship name="flights_CoreData" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flight" inverseName="airline" inverseEntity="Flight"/>
+        <relationship name="flights_CoreData" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flight" inverseName="airline_CoreData" inverseEntity="Flight"/>
     </entity>
     <entity name="Airport" representedClassName="Airport" syncable="YES" codeGenerationType="class">
         <attribute name="icao_CoreData" optional="YES" attributeType="String"/>
@@ -13,18 +13,18 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="timezone" optional="YES" attributeType="String"/>
-        <relationship name="flightsFrom_CoreData" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flight" inverseName="origin" inverseEntity="Flight"/>
-        <relationship name="flightsTo_CoreData" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flight" inverseName="destination" inverseEntity="Flight"/>
+        <relationship name="flightsFrom_CoreData" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flight" inverseName="origin_CoreData" inverseEntity="Flight"/>
+        <relationship name="flightsTo_CoreData" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flight" inverseName="destination_CoreData" inverseEntity="Flight"/>
     </entity>
     <entity name="Flight" representedClassName="Flight" syncable="YES" codeGenerationType="class">
         <attribute name="aircraft" optional="YES" attributeType="String"/>
-        <attribute name="arrival" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="arrival_CoreData" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="departure" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="filed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="ident" optional="YES" attributeType="String"/>
-        <relationship name="airline" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Airline" inverseName="flights_CoreData" inverseEntity="Airline"/>
-        <relationship name="destination" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Airport" inverseName="flightsTo_CoreData" inverseEntity="Airport"/>
-        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Airport" inverseName="flightsFrom_CoreData" inverseEntity="Airport"/>
+        <attribute name="ident_CoreData" optional="YES" attributeType="String"/>
+        <relationship name="airline_CoreData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Airline" inverseName="flights_CoreData" inverseEntity="Airline"/>
+        <relationship name="destination_CoreData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Airport" inverseName="flightsTo_CoreData" inverseEntity="Airport"/>
+        <relationship name="origin_CoreData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Airport" inverseName="flightsFrom_CoreData" inverseEntity="Airport"/>
     </entity>
     <elements>
         <element name="Airline" positionX="-217.35546875" positionY="-445.140625" width="128" height="103"/>

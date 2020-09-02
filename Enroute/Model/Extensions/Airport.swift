@@ -81,7 +81,7 @@ extension Airport: Identifiable ,
              * Look up icao in Core Data :
              */
             let request = NSFetchRequest<Airport>(entityName: "Airport")
-            request.predicate = NSPredicate(format : "icao = %@" , icao)
+            request.predicate = NSPredicate(format : "icao_CoreData = %@" , icao)
             request.sortDescriptors = [NSSortDescriptor(key : "location" , ascending : true)]
             
             let airports = (try? context.fetch(request)) ?? []
