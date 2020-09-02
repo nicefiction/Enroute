@@ -11,9 +11,14 @@ import Foundation
 
 struct FlightSearch {
     
-    var destination: String
-    var origin: String?
-    var airline: String?
+//    var destination: String
+//    var origin: String?
+//    var airline: String?
+//    var inTheAir: Bool = true
+    
+    var destination: Airport
+    var origin: Airport?
+    var airline: Airline?
     var inTheAir: Bool = true
     
 } // struct FlightSearch {}
