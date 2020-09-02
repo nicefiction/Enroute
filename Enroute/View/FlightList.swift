@@ -25,9 +25,10 @@ struct FlightList: View {
     init(_ flightSearch: FlightSearch) {
         
 //        self.flightFetcher = FlightFetcher(flightSearch: flightSearch)
-        let request = NSFetchRequest<Flight>(entityName: "Flight")
-        request.predicate = NSPredicate(format : "destination_CoreData = %@" , flightSearch.destination)
-        request.sortDescriptors = [NSSortDescriptor(key : "arrival_CoreData" , ascending : true)]
+//        let request = NSFetchRequest<Flight>(entityName: "Flight")
+//        request.predicate = NSPredicate(format : "destination_CoreData = %@" , flightSearch.destination)
+//        request.sortDescriptors = [NSSortDescriptor(key : "arrival_CoreData" , ascending : true)]
+        let request  = Flight.fetchRequest(NSPredicate(format: "destination_CoreData = %@" , flightSearch.destination))
         
         _flights = FetchRequest(fetchRequest : request)
     } // init() {}

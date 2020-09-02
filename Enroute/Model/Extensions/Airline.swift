@@ -55,7 +55,7 @@ extension Airline: Identifiable ,
                          in context: NSManagedObjectContext)
         -> Airline {
             
-        let request = fetchRequest(NSPredicate(format: "code_ = %@", code))
+        let request = fetchRequest(NSPredicate(format: "code_CoreData = %@", code))
         let results = (try? context.fetch(request)) ?? []
             
         if
@@ -77,12 +77,16 @@ extension Airline: Identifiable ,
     } // static func withCode(_ , in) -> Airline {}
 
     
-    static func fetchRequest(_ predicate: NSPredicate) -> NSFetchRequest<Airline> {
-        let request = NSFetchRequest<Airline>(entityName: "Airline")
-        request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
+    static func fetchRequest(_ predicate: NSPredicate)
+        -> NSFetchRequest<Airline> {
+            
+        let request = NSFetchRequest<Airline>(entityName : "Airline")
+        request.sortDescriptors = [NSSortDescriptor(key : "name_CoreData" ,
+                                                    ascending : true)]
         request.predicate = predicate
+            
         return request
-    }
+    } // static func fetchRequest(_:) -> NSFetchRequest<Airline> {}
     
     
     public static func < (lhs: Airline ,

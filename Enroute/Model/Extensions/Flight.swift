@@ -24,7 +24,7 @@ extension Flight { // should probably be Identifiable & Comparable
                        in context: NSManagedObjectContext)
         -> Flight {
             
-        let request = fetchRequest(NSPredicate(format: "ident_ = %@", faflight.ident))
+        let request = fetchRequest(NSPredicate(format: "ident_CoreData = %@" , faflight.ident))
         let results = (try? context.fetch(request)) ?? []
         let flight = results.first ?? Flight(context: context)
         flight.ident = faflight.ident
@@ -48,8 +48,9 @@ extension Flight { // should probably be Identifiable & Comparable
     static func fetchRequest(_ predicate: NSPredicate)
         -> NSFetchRequest<Flight> {
             
-        let request = NSFetchRequest<Flight>(entityName: "Flight")
-        request.sortDescriptors = [NSSortDescriptor(key: "arrival_", ascending: true)]
+        let request = NSFetchRequest<Flight>(entityName : "Flight")
+        request.sortDescriptors = [NSSortDescriptor(key : "arrival_CoreData" ,
+                                                    ascending : true)]
         request.predicate = predicate
             
         return request
