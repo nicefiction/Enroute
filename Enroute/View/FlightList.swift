@@ -28,7 +28,8 @@ struct FlightList: View {
 //        let request = NSFetchRequest<Flight>(entityName: "Flight")
 //        request.predicate = NSPredicate(format : "destination_CoreData = %@" , flightSearch.destination)
 //        request.sortDescriptors = [NSSortDescriptor(key : "arrival_CoreData" , ascending : true)]
-        let request  = Flight.fetchRequest(NSPredicate(format: "destination_CoreData = %@" , flightSearch.destination))
+//        let request  = Flight.fetchRequest(NSPredicate(format: "destination_CoreData = %@" , flightSearch.destination))
+        let request = Flight.fetchRequest(flightSearch.predicate)
         
         _flights = FetchRequest(fetchRequest : request)
     } // init() {}
@@ -47,16 +48,22 @@ struct FlightList: View {
             }
         }
         .navigationBarTitle(title)
-    }
+    } // var body: some View {}
+    
     
     private var title: String {
         let title = "Flights"
         if
-            let destination = flights.first?.destination {
+            let destination = flights.first?.destination.icao {
             
             return title + " to \(destination)"
         } else {
             return title
-        }
-    }
-}
+        } // if let destination {} else {}
+    } // private var title: String {}
+    
+    
+    
+    
+    
+} // struct FlightList {]

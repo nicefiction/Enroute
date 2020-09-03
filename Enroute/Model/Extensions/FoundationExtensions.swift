@@ -14,9 +14,11 @@ extension NSPredicate {
     static var none = NSPredicate(format: "FALSEPREDICATE")
 }
 
+
 extension Data {
-    var utf8: String? { String(data: self, encoding: .utf8 ) }
+    var utf8: String? { String(data : self , encoding : .utf8 ) }
 }
+
 
 extension String {
     var trim: String {
@@ -33,6 +35,7 @@ extension String {
         array.contains(where: { self.contains($0) })
     }
 }
+
 
 extension DateFormatter {
     static var short: DateFormatter = {
@@ -76,6 +79,7 @@ extension DateFormatter {
         return DateFormatter.short.string(from: date)
     }
 }
+
 
 extension DateComponents {
     func isSameDay(as other: DateComponents) -> Bool {

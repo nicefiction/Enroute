@@ -15,6 +15,8 @@ struct FlightsEnrouteView: View {
      // //////////////////
     //  PROPERTY WRAPPERS
     
+    @Environment(\.managedObjectContext) var context
+    
     @State var flightSearch: FlightSearch
     @State private var showFilter = false
     
@@ -40,6 +42,7 @@ struct FlightsEnrouteView: View {
         .sheet(isPresented : $showFilter) {
             FilterFlights(flightSearch : self.$flightSearch ,
                           isPresented : self.$showFilter)
+                .environment(\.managedObjectContext , self.context)
         } // .sheet(isPresented) {}
     } // var filter: some View {}
     
