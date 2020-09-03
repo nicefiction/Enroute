@@ -15,6 +15,14 @@ import Combine
 extension Airport: Identifiable ,
                    Comparable {
     
+     // /////////////////
+    //  MARK: PROPERTIES
+    
+    private static var flightAwareRequest: EnrouteRequest!
+    private static var flightAwareResultsCancellable: AnyCancellable?
+    
+    
+    
      // //////////////////////////
     //  MARK: COMPUTED PROPERTIES
     
@@ -136,13 +144,36 @@ extension Airport: Identifiable ,
     static func fetchRequest(_ predicate: NSPredicate)
         -> NSFetchRequest<Airport> {
             
-           let request = NSFetchRequest<Airport>(entityName : "Airport")
-           request.sortDescriptors = [NSSortDescriptor(key : "location" ,
-                                                       ascending : true)]
-           request.predicate = predicate
+            let request = NSFetchRequest<Airport>(entityName : "Airport")
+            request.sortDescriptors = [NSSortDescriptor(key : "location" ,
+                                                        ascending : true)]
+            request.predicate = predicate
             
-           return request
-       } // static func fetchRequest(_:) -> NSFetchRequest<Airport> {}
+            return request
+    } // static func fetchRequest(_:) -> NSFetchRequest<Airport> {}
+    
+    
+    func fetchIncomingFlights() {
+        Self.flightAwareRequest?.stopFetching()
+        
+        if
+            let context = managedObjectContext {
+            Self.flightAwareRequest = EnrouteRequest.create(airport : icao , howMany : 90)
+            Self.flightAwareRequest?.fetch(andRepeatEvery : 60)
+            Self.flightAwareResultsCancellable = Self.flightAwareRequest?.results.sink { results in
+                for faflight in results {
+                    Flight.update(from : faflight ,
+                                  in : context)
+                } // for faflight in results {}
+                
+                do {
+                    try context.save()
+                } catch(let error) {
+                    print("couldn't save flight update to CoreData: \(error.localizedDescription)")
+                } // do {} catch(let error) {}
+            } // Self.flightAwareRequest?.results.sink { results in }
+        } // if let context = managedObjectContext {}
+    } // func fetchIncomingFlights() {}
     
     
     

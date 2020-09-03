@@ -55,21 +55,24 @@ extension Airline: Identifiable ,
                          in context: NSManagedObjectContext)
         -> Airline {
             
-        let request = fetchRequest(NSPredicate(format: "code_CoreData = %@", code))
+        let request = fetchRequest(NSPredicate(format : "code_CoreData = %@", code))
         let results = (try? context.fetch(request)) ?? []
             
         if
             let airline = results.first {
             return airline
         } else {
-            let airline = Airline(context: context)
+            let airline = Airline(context : context)
             airline.code = code
             AirlineInfoRequest.fetch(code) { info in
-                let airline = self.withCode(code, in: context)
+                let airline = self.withCode(code , in : context)
+                
                 airline.name = info.name
                 airline.shortname = info.shortname
+                
                 airline.objectWillChange.send()
                 airline.flights.forEach { $0.objectWillChange.send() }
+                
                 try? context.save()
             } // AirlineInfoRequest.fetch(code) { info in }
             return airline

@@ -14,19 +14,58 @@ import Combine
 
 extension Flight { // should probably be Identifiable & Comparable
     
-    @discardableResult
+    
+     // //////////////////////////
+    //  MARK: COMPUTED PROPERTIES
+    
+    var arrival: Date {
+        get { arrival_CoreData ?? Date(timeIntervalSinceReferenceDate: 0) }
+        set { arrival_CoreData = newValue }
+    } // var arrival: Date {}
+    
+    
+    var ident: String {
+        get { ident_CoreData ?? "Unknown" }
+        set { ident_CoreData = newValue }
+    } // var ident: String {}
+    
+    
+    var destination: Airport {
+        get { destination_CoreData! } // TODO: protect against nil before shipping?
+        set { destination_CoreData = newValue }
+    } // var destination: Airport {}
+    
+    
+    var origin: Airport {
+        get { origin_CoreData! } // TODO: maybe protect against when app ships?
+        set { origin_CoreData = newValue }
+    } // var origin: Airport {}
+    
+    
+    var airline: Airline {
+        get { airline_CoreData! } // TODO: maybe protect against when app ships?
+        set { airline_CoreData = newValue }
+    } // var airline: Airline {}
+    
+    
+    var number: Int {
+        Int(String(ident.drop(while: { !$0.isNumber }))) ?? 0
+    } // var number: Int {}
+    
     
     
      // //////////////
     //  MARK: METHODS
     
+    @discardableResult
     static func update(from faflight: FAFlight ,
                        in context: NSManagedObjectContext)
         -> Flight {
             
-        let request = fetchRequest(NSPredicate(format: "ident_CoreData = %@" , faflight.ident))
+        let request = fetchRequest(NSPredicate(format : "ident_CoreData = %@" , faflight.ident))
         let results = (try? context.fetch(request)) ?? []
-        let flight = results.first ?? Flight(context: context)
+        let flight = results.first ?? Flight(context : context)
+            
         flight.ident = faflight.ident
         flight.origin = Airport.withICAO(faflight.origin, context: context)
         flight.destination = Airport.withICAO(faflight.destination, context: context)
@@ -58,42 +97,6 @@ extension Flight { // should probably be Identifiable & Comparable
     
     
     
-     // //////////////////////////
-    //  MARK: COMPUTED PROPERTIES
-    
-    var arrival: Date {
-        get { arrival_CoreData ?? Date(timeIntervalSinceReferenceDate: 0) }
-        set { arrival_CoreData = newValue }
-    }
-    
-    
-    var ident: String {
-        get { ident_CoreData ?? "Unknown" }
-        set { ident_CoreData = newValue }
-    }
-    
-    
-    var destination: Airport {
-        get { destination_CoreData! } // TODO: protect against nil before shipping?
-        set { destination_CoreData = newValue }
-    }
-    
-    
-    var origin: Airport {
-        get { origin_CoreData! } // TODO: maybe protect against when app ships?
-        set { origin_CoreData = newValue }
-    }
-    
-    
-    var airline: Airline {
-        get { airline_CoreData! } // TODO: maybe protect against when app ships?
-        set { airline_CoreData = newValue }
-    }
-    
-    
-    var number: Int {
-        Int(String(ident.drop(while: { !$0.isNumber }))) ?? 0
-    }
     
     
     

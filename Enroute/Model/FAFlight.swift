@@ -16,15 +16,11 @@ struct FAFlight: Codable ,
                  Comparable ,
                  CustomStringConvertible {
     
+     // /////////////////
+    //  MARK: PROPERTIES
+    
     private(set) var ident: String
     private(set) var aircraft: String
-    
-    var number: Int { Int(String(ident.drop(while: { !$0.isNumber }))) ?? 0 }
-    var airlineCode: String { String(ident.prefix(while: { !$0.isNumber })) }
-    
-    var departure: Date? { actualdeparturetime > 0 ? Date(timeIntervalSince1970: TimeInterval(actualdeparturetime)) : nil }
-    var arrival: Date { Date(timeIntervalSince1970: TimeInterval(estimatedarrivaltime)) }
-    var filed: Date { Date(timeIntervalSince1970: TimeInterval(filed_departuretime)) }
     
     private(set) var destination: String
     private(set) var destinationName: String
@@ -34,13 +30,58 @@ struct FAFlight: Codable ,
     private(set) var originName: String
     private(set) var originCity: String
     
+    private var actualdeparturetime: Int
+    private var estimatedarrivaltime: Int
+    private var filed_departuretime: Int
+    
+    
+    
+     // //////////////////////////
+    //  MARK: COMPUTED PROPERTIES
+    
+    var number: Int {
+        Int(String(ident.drop(while : { !$0.isNumber }))) ?? 0
+    } // var number: Int {}
+    
+    
+    var airlineCode: String { String(ident.prefix(while : { !$0.isNumber })) }
+    
+    
+    var departure: Date? {
+        actualdeparturetime > 0 ? Date(timeIntervalSince1970: TimeInterval(actualdeparturetime)) : nil
+    } // var departure: Date? {}
+    
+    
+    var arrival: Date { Date(timeIntervalSince1970: TimeInterval(estimatedarrivaltime)) }
+    
+    
+    var filed: Date { Date(timeIntervalSince1970: TimeInterval(filed_departuretime)) }
+    
+    
     var originFullName: String {
         let origin = self.origin.first == "K" ? String(self.origin.dropFirst()) : self.origin
-        if originName.contains(elementIn: originCity.components(separatedBy: ",")) {
+        if originName.contains(elementIn : originCity.components(separatedBy : ",")) {
             return origin + " " + originCity
         }
         return origin + " \(originName), \(originCity)"
-    }
+    } // var originFullName: String {}
+    
+    
+    var id: String { ident }
+
+    
+    var description: String {
+        if let departure = self.departure {
+            return "\(ident) departed \(origin) at \(departure) arriving \(arrival)"
+        } else {
+            return "\(ident) scheduled to depart \(origin) at \(filed) arriving \(arrival)"
+        }
+    } // var description: String {}
+    
+    
+    
+     // ////////////
+    //  MARK: ENUMS
     
     private enum CodingKeys: String, CodingKey {
         case ident
@@ -51,29 +92,34 @@ struct FAFlight: Codable ,
         case destinationName, destinationCity
     }
     
-    private var actualdeparturetime: Int
-    private var estimatedarrivaltime: Int
-    private var filed_departuretime: Int
     
-    var id: String { ident }
+    
+     // //////////////
+    //  MARK: METHODS
+    
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
-    static func ==(lhs: FAFlight, rhs: FAFlight) -> Bool { lhs.id == rhs.id }
     
-    static func < (lhs: FAFlight, rhs: FAFlight) -> Bool {
+    
+    static func ==(lhs: FAFlight ,
+                   rhs: FAFlight)
+        -> Bool { lhs.id == rhs.id }
+    
+    
+    static func < (lhs: FAFlight ,
+                   rhs: FAFlight)
+        -> Bool {
+            
         if lhs.arrival < rhs.arrival {
             return true
         } else if rhs.arrival < lhs.arrival {
             return false
         } else {
             return lhs.departure ?? lhs.filed < rhs.departure ?? rhs.filed
-        }
-    }
+        } // if {} else if {} else {}
+    } // static func < (lhs: FAFlight, rhs: FAFlight) -> Bool {}
 
-    var description: String {
-        if let departure = self.departure {
-            return "\(ident) departed \(origin) at \(departure) arriving \(arrival)"
-        } else {
-            return "\(ident) scheduled to depart \(origin) at \(filed) arriving \(arrival)"
-        }
-    }
-}
+   
+    
+    
+    
+} // struct FAFlight {}
